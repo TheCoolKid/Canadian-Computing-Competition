@@ -1,0 +1,37 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        new Main();
+    }
+    
+    public Main(){
+        Scanner scanner = new Scanner(System.in);
+        int numSize = scanner.nextInt();
+        LinkedList<Integer> num = new LinkedList<Integer>();
+        for(int i = 0; i < numSize; i ++)
+            num.add(i + 1);
+        int rounds = scanner.nextInt();
+        int[] change = new int[rounds];
+        for(int i = 0;i < rounds; i ++)
+            change[i] = scanner.nextInt();
+        scanner.close();
+        for(int i = 0;i < rounds; i ++){
+            for(int r = 1; r < num.size() + 1; r ++){
+                if(r * change[i] < num.size() + 1){
+                   //System.out.print(r * change[i]);
+                   num.set(r * change[i] - 1, -1);
+                }
+            }
+            for(int x = 0; x < numSize;x ++)
+                num.removeFirstOccurrence(-1);
+        }   
+                
+        for(int i = 0; i < num.size(); i ++)
+            System.out.println(num.get(i));
+        System.exit(0);
+    }
+    
+}
