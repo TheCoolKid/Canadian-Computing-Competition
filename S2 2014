@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        new Main();
+    }
+    
+    public Main(){
+        Scanner scanner = new Scanner(System.in);
+        int pairs = scanner.nextInt();
+        scanner.nextLine();
+        String rawPerson = scanner.nextLine();
+        String rawPartner = scanner.nextLine();
+        scanner.close();
+        String[] person = rawPerson.split(" ");
+        String[] partner = rawPartner.split(" ");
+        boolean[] success = new boolean[pairs];
+        if(person.length != pairs || partner.length != pairs){
+            System.out.println("bad");
+            System.exit(0);
+        }
+        for(int i = 0; i < pairs; i ++)
+            if(person[i].equals(partner[i])){
+              System.out.println("bad");
+              System.exit(0);
+            }
+        for(int i = 0; i < pairs; i ++)
+            success[i] = false;
+        for(int i = 0; i < pairs; i ++)
+            for(int r = 0; r < pairs; r ++)
+                if(person[i].equals(partner[r]) && person[r].equals(partner[i])){
+                    success[i] = true;
+                    success[r] = true;
+                }
+        for(int i = 0; i < pairs; i ++)
+            if(!success[i]){
+                System.out.println("bad");
+                System.exit(0);
+            }
+        System.out.println("good");
+        System.exit(0);
+              
+        
+    }
+}
