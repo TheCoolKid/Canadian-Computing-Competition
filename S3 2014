@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static Scanner scan = new Scanner(System.in);
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int n = scan.nextInt();
+		ArrayList<Integer> mountain = new ArrayList<Integer>();
+		ArrayList<Integer> branch = new ArrayList<Integer>();
+		for(int i = 0; i < n;i++){
+			branch.clear();
+			mountain.clear();
+			int n2 = scan.nextInt();
+			for(int j = 0; j < n2;j++){
+				mountain.add(0, scan.nextInt());
+			}
+			int index = 1;
+			boolean cont = true;
+			while( cont == true  ){
+				if(mountain.size() == 0 && branch.size() == 0){
+					cont = true;
+					break;
+				}
+				if(mountain.size() > 0){
+					if(mountain.get(0) == index){
+						index++;
+						mountain.remove(0);
+						continue;
+					}
+				}
+					if(branch.size() > 0 && branch.get(0) == index){
+						index++;
+						branch.remove(0);
+						continue;
+					}
+					if(mountain.size() > 0){
+						branch.add(0,mountain.get(0));
+						mountain.remove(0);
+						continue;
+					}
+					
+				
+				
+				cont = false;
+			}
+			if(cont == true){
+				System.out.println("Y");
+			}
+			else{
+				System.out.println("N");
+			}
+			
+		}
+		
+	}
+
+}

@@ -1,0 +1,106 @@
+//java solution
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class CCC2014S4V2 {
+	public static void main(String[] args){
+		new CCC2014S4V2();
+	}
+	
+	public CCC2014S4V2(){
+		 Scanner scanner = new Scanner(System.in);
+		 int glassNum = scanner.nextInt();
+		 int threshold = scanner.nextInt();
+		 int[][] glasses = new int[glassNum * 2][4];
+		 
+		ArrayList<Integer> yValues = new ArrayList<Integer>();
+		 for(int i = 0; i < glassNum; i ++){
+			 int x1 = scanner.nextInt();
+			 int y1 = scanner.nextInt();
+			 int x2 = scanner.nextInt();
+			 int y2 = scanner.nextInt();
+			 int tint = scanner.nextInt();
+			
+			 int[] t1 = {x1, y1, y2, tint};
+			 int[] t2 = {x2, y1, y2, -tint};
+			 glasses[i] = t1;
+			 glasses[i + glassNum] = t2;
+			
+			 int j = 0;
+			 boolean foundY1 = false, foundY2 = false;
+			  while(j < yValues.size() && (!foundY1 || ! foundY2)){
+				  if(yValues.get(j) == y1)
+					{
+						foundY1 = true;
+					}
+					if(yValues.get(j) == y2)
+					{
+						foundY2 = true;
+					}
+					j++;
+			  }
+			  if(!foundY1)
+				{
+					yValues.add(y1);
+				}
+				if(!foundY2)
+				{
+					yValues.add(y2);
+				}
+			 
+		 }
+		 scanner.close();
+		 Arrays.sort(glasses, new Comparator<int[]>(){
+			 @Override
+	            public int compare(final int[] entry1, final int[] entry2) {
+				 Integer a = entry1[0];
+				 Integer b = entry2[0];
+				 	return a.compareTo(b);
+	            }
+		 });
+		 Collections.sort(yValues);
+		 HashMap<Integer, Integer> ymap = new HashMap<Integer,Integer>();
+		 for(int i = 0; i < yValues.size(); ++i)
+			{
+				ymap.put(yValues.get(i), i);
+			}
+		 int area = 0;
+		 int[] ytints = new int[yValues.size()];
+		 for(int i = 0; i < glasses.length; i++){
+			 for(int j = 0; j < ytints.length;j++){
+				 if(ytints[j] >= threshold){
+					 area += (yValues.get(j + 1) - yValues.get(j))*(glasses[i][0] - glasses[i - 1][0]);
+				 }
+			 }
+			 for(int j = ymap.get(glasses[i][1]); j < ymap.get(glasses[i][2]); j++)
+				{
+					ytints[j] += glasses[i][3];
+				}
+		 }
+		// Arrays.sort(glasses);
+		 
+//		 for(int x = minx; x < maxx; x ++){
+//			 if(x == glasses[index][0]){
+//				 for(int j = glasses[index][1]; j < glasses[index][2]; j ++){
+//					 sweepLine[j - miny] += glasses[index][3];
+//					 if(sweepLine[j - miny] >= threshold)
+//						 currentValid ++;
+//					 else{
+//						 try{
+//							 if(sweepLine[j - miny] - glasses[index][3] >= threshold)
+//								 currentValid --;
+//						 }catch(ArrayIndexOutOfBoundsException e){}
+//					 }
+//				 }
+//				 index ++;
+//			 }
+//				 count += currentValid;
+//		 }
+		// System.out.println(count);
+		 System.out.println(area);
+		 }
+}

@@ -1,0 +1,27 @@
+
+	import java.util.*;
+
+
+	public class Main {
+
+	 public static void main(String[] args) {
+			Scanner scan = new Scanner(System.in);
+			int side1 = scan.nextInt();
+			int side2 = scan.nextInt();
+			int side3 = scan.nextInt();
+			if(side1 == side2 && side1 == side3){
+				System.out.println("Equilateral");
+			}
+			else if(side1 + side2 + side3 != 180){
+				System.out.println("Error");
+			}
+			else if (side1!= side2 && side1!= side3 && side2 != side3 ){
+				System.out.println("Scalene");
+			}
+			else{
+				System.out.println("Isosceles");
+			}
+			
+			}
+
+	}
