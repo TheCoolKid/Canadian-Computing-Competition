@@ -21,6 +21,7 @@
 			else{
 				System.out.println("Isosceles");
 			}
+			
 			}
 
 	}
